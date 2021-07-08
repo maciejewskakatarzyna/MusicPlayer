@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import "./styles.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+function Heading() {
+    return <h1>Music Player</h1>;
 }
-
-export default App;
+function SongPlayer() {
+    return (
+        <section>
+            <Heading />
+            <audio controls>
+                <source src="https://examples.devmastery.pl/assets/audio/deadfro5h.mp3" />
+            </audio>
+        </section>
+    );
+}
+export default function App() {
+    return (
+        <div className="App">
+            <SongPlayer />
+        </div>
+    );
+}
