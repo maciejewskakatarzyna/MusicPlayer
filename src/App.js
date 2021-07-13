@@ -16,9 +16,13 @@ function SongPlayer({ showControls = true, song }) {
     );
 }
 
-function SongListItem({song}) {
+function SongListItem({song, isCurrent}) {
+    const backgroundColor = isCurrent ? "darkslategray" : "none"
+    const style = {backgroundColor}
     return (
-        <li>{song.title} by {song.artist}</li>
+        <li style={style}>
+            {song.title} by {song.artist}
+        </li>
     )
 }
 
@@ -50,7 +54,7 @@ const currentSong = songs[2];
             <section>
                 <Heading title="Songs" />
                 <ul>{songs.map(song =>
-                    <SongListItem key={song.audioUrl} song={song} />)}
+                    <SongListItem key={song.audioUrl} song={song} isCurrent={currentSong.audioUrl === song.audioUrl}/>)}
                 </ul>
             </section>
         </div>
