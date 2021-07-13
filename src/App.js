@@ -1,18 +1,23 @@
 import "./styles.css";
-import React, {useState} from "react";
+import React, {useState, useRef} from "react";
 
 function Heading({ title }) {
     return <h1>{title}</h1>;
 }
-function SongPlayer({ showControls = true, song }) {
+function SongPlayer({ showControls = false, song }) {
+    const audioRef = useRef();
     const { audioUrl, coverUrl } = song
         return (
         <section>
             <Heading title={"Music Player"}/>
             <img width="250px" height="250px" src={coverUrl} alt="Song cover" />
-            <audio key={audioUrl} controls={showControls}>
+            <audio ref={audioRef} key={audioUrl} controls={showControls}>
                 <source src={audioUrl} />
             </audio>
+            <div>
+                <button onClick={() => audioRef.current.play()}>Play</button>
+                <button onClick={() => audioRef.current.pause()}>Pause</button>
+            </div>
         </section>
     );
 }
