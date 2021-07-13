@@ -16,6 +16,11 @@ function SongPlayer({ showControls = true, song }) {
     );
 }
 
+function SongListItem({song}) {
+    return (
+        <li>{song.title} by {song.artist}</li>
+    )
+}
 
 export default function App() {
      const songs = [
@@ -38,10 +43,16 @@ export default function App() {
              artist: "Wowa"
          }
      ]
-const currentSong = songs[1];
+const currentSong = songs[2];
     return (
         <div className="App">
             <SongPlayer song={currentSong}/>
+            <section>
+                <Heading title="Songs" />
+                <ul>{songs.map(song =>
+                    <SongListItem key={song.audioUrl} song={song} />)}
+                </ul>
+            </section>
         </div>
     );
 }
