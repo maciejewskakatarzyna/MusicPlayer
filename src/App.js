@@ -1,4 +1,5 @@
 import "./styles.css";
+import React, {useState} from "react";
 
 function Heading({ title }) {
     return <h1>{title}</h1>;
@@ -16,11 +17,14 @@ function SongPlayer({ showControls = true, song }) {
     );
 }
 
-function SongListItem({song, isCurrent}) {
-    const backgroundColor = isCurrent ? "darkslategray" : "none"
-    const style = {backgroundColor}
+function SongListItem({song, isCurrent, onSelect}) {
+    const background = isCurrent ? "darkslategray" : "none"
+    const style = {background}
+    function handleClick() {
+        onSelect(song)
+    }
     return (
-        <li style={style}>
+        <li style={style} onClick={handleClick}>
             {song.title} by {song.artist}
         </li>
     )
@@ -47,14 +51,28 @@ export default function App() {
              artist: "Wowa"
          }
      ]
-const currentSong = songs[2];
+
+    const [currentSongIndex, setCurrentSongIndex] = useState(0)
+    const currentSong = songs[currentSongIndex]
+
+     function handleSelectSong(selectedSong) {
+        const audioIndex = songs.findIndex(song => song.audioUrl === selectedSong.audioUrl)
+         if(audioIndex >= 0) {
+             setCurrentSongIndex(audioIndex)
+         }
+    }
     return (
         <div className="App">
             <SongPlayer song={currentSong}/>
             <section>
                 <Heading title="Songs" />
                 <ul>{songs.map(song =>
-                    <SongListItem key={song.audioUrl} song={song} isCurrent={currentSong.audioUrl === song.audioUrl}/>)}
+                    <SongListItem
+                        key={song.audioUrl}
+                        song={song}
+                        isCurrent={currentSong.audioUrl === song.audioUrl}
+                        onSelect={handleSelectSong}
+                    />)}
                 </ul>
             </section>
         </div>
