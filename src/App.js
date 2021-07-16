@@ -8,7 +8,7 @@ function SongPlayer({ showControls = false, song }) {
     const audioRef = useRef();
     const { audioUrl, coverUrl } = song
         return (
-        <section>
+        <section className="SongPlayer">
             <Heading title={"Music Player"}/>
             <img width="250px" height="250px" src={coverUrl} alt="Song cover" />
             <audio ref={audioRef} key={audioUrl} controls={showControls}>
@@ -23,13 +23,11 @@ function SongPlayer({ showControls = false, song }) {
 }
 
 function SongListItem({song, isCurrent, onSelect}) {
-    const background = isCurrent ? "darkslategray" : "none"
-    const style = {background}
-    function handleClick() {
+        function handleClick() {
         onSelect(song)
     }
     return (
-        <li style={style} onClick={handleClick}>
+        <li className={`SongListItem ${isCurrent ? 'selected' : ''}`} onClick={handleClick}>
             {song.title} by {song.artist}
         </li>
     )
@@ -56,21 +54,26 @@ export default function App() {
     }
     return (
         <div className="App">
-            { songs.length === 0 ? "Loading..." :(
+            {songs.length === 0 ? (
+                "Loading..."
+            ) : (
                 <>
-                <SongPlayer song={currentSong}/>
-                <section>
-                <Heading title="Songs" />
-                <ul>{songs.map(song =>
-                <SongListItem
-                key={song.audioUrl}
-                song={song}
-                isCurrent={currentSong.audioUrl === song.audioUrl}
-                onSelect={handleSelectSong}
-                />)}
-                </ul>
-                </section></>)}
-
+                    <SongPlayer song={currentSong} />
+                    <section className="Songs">
+                        <Heading title="Songs" />
+                        <ul>
+                            {songs.map((song) => (
+                                <SongListItem
+                                    key={song.audioUrl}
+                                    song={song}
+                                    isCurrent={currentSong.audioUrl === song.audioUrl}
+                                    onSelect={handleSelectSong}
+                                />
+                            ))}
+                        </ul>
+                    </section>
+                </>
+            )}
         </div>
     );
 }
