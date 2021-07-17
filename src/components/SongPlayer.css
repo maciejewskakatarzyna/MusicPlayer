@@ -20,9 +20,14 @@
 .SongPlayer button {
     padding: 10px;
     margin: 0 10px;
-    border-radius: 5px;
     border-style: none;
-    font-weight: bold;
-    background-color: gold;
     cursor: pointer;
+    background-color: darkslategray;
+    fill: powderblue;
+    font-weight: bold;
 }
+
+.SongPlayer button svg:hover {
+    fill: white
+}
+
