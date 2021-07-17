@@ -1,45 +1,9 @@
-import "./styles.css";
-import React, {useState, useRef, useEffect} from "react";
-
-function Heading({ title }) {
-    return <h1>{title}</h1>;
-}
-function SongPlayer({ showControls = false, song }) {
-    const audioRef = useRef();
-    const { audioUrl, coverUrl } = song
-        return (
-        <section className="SongPlayer">
-            <Heading title={"Music Player"}/>
-            <img width="250px" height="250px" src={coverUrl} alt="Song cover" />
-            <audio ref={audioRef} key={audioUrl} controls={showControls}>
-                <source src={audioUrl} />
-            </audio>
-            <div>
-                <button onClick={() => audioRef.current.play()}>Play</button>
-                <button onClick={() => audioRef.current.pause()}>Pause</button>
-            </div>
-        </section>
-    );
-}
-
-function Songs({children}) {
-    return(
-        <section className="Songs">
-            {children}
-        </section>
-    )
-}
-
-function SongListItem({song, isCurrent, onSelect}) {
-        function handleClick() {
-        onSelect(song)
-    }
-    return (
-        <li className={`SongListItem ${isCurrent ? 'selected' : ''}`} onClick={handleClick}>
-            {song.title} by {song.artist}
-        </li>
-    )
-}
+import React, {useEffect, useState} from "react";
+import Heading from "./Heading"
+import Songs from "./Songs";
+import SongListItem from "./SongListItem";
+import SongPlayer from "./SongPlayer";
+import "./App.css"
 
 export default function App() {
     const URL = "https://examples.devmastery.pl/songs-api/songs"
