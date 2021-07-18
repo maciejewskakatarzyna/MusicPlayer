@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import Heading from "./Heading"
 import Songs from "./Songs";
 import SongListItem from "./SongListItem";
@@ -24,13 +24,25 @@ export default function App() {
              setCurrentSongIndex(audioIndex)
          }
     }
+
+    function handleNextSong() {
+        const nextSongIndex = (currentSongIndex + 1) % songs.length;
+        setCurrentSongIndex(nextSongIndex)
+    }
+
+    function handlePrevSong() {
+        const prevSongIndex = (currentSongIndex + songs.length - 1) % songs.length;
+        setCurrentSongIndex(prevSongIndex)
+    }
+
     return (
         <div className="App">
             {songs.length === 0 ? (
                 "Loading..."
             ) : (
                 <>
-                    <SongPlayer song={currentSong} />
+                    <SongPlayer song={currentSong} handleNextSong={handleNextSong} handlePrevSong={handlePrevSong}>
+                    </SongPlayer>
                     <Songs>
                         <Heading title="Songs" />
                             <ul>
@@ -44,7 +56,6 @@ export default function App() {
                             ))}
                             </ul>
                     </Songs>
-
                 </>
             )}
         </div>
