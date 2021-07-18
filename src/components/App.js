@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import Heading from "./Heading"
 import Songs from "./Songs";
 import SongListItem from "./SongListItem";
