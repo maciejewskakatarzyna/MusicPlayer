@@ -1,3 +1,7 @@
+## General info
+
 Music player created during React course (kursreacta.pl)
 
-Demo: https://kasiamaciejewska-music-player.netlify.app/
+## Demo
+
+Demo version: https://kasiamaciejewska-music-player.netlify.app/
